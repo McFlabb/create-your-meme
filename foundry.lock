@@ -10,5 +10,8 @@
   },
   "lib/sign-protocol-evm": {
     "rev": "264af194a780b7b4493aa056b597ab80243b5a0c"
+  },
+  "lib/v4-core": {
+    "rev": "4aa6c3ddd3b540a3aa22021c02d2298e79ae3928"
   }
 }

@@ -7,3 +7,6 @@
 [submodule "lib/sign-protocol-evm"]
 	path = lib/sign-protocol-evm
 	url = https://github.com/EthSign/sign-protocol-evm
+[submodule "lib/v4-core"]
+	path = lib/v4-core
+	url = https://github.com/Uniswap/v4-core
