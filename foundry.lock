@@ -7,5 +7,8 @@
   },
   "lib/openzeppelin-contracts": {
     "rev": "3291252c866ad698f6a55ec660259e49a67eb3d0"
+  },
+  "lib/sign-protocol-evm": {
+    "rev": "264af194a780b7b4493aa056b597ab80243b5a0c"
   }
 }
