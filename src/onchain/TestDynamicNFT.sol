@@ -91,4 +91,8 @@ contract TestDynamicNFT is ERC721 {
 
         emit NFTUpdated(tokenId, "userAction", Strings.toString(nftStates[tokenId].userActionCount));
     }
+
+    function _pseudoRandom(uint256 seed, string memory salt) internal view returns (uint256) {
+        return uint256(keccak256(abi.encodePacked(block.timestamp, block.prevrandao, seed, salt)));
+    }
 }
