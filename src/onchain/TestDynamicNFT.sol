@@ -8,4 +8,6 @@ import "@openzeppelin/contracts/utils/Strings.sol";
  * @title TestDynamicNFT
  * @dev Simplified Test NFT contract for basic functionality testing
  */
-contract TestDynamicNFT is ERC721 {}
+contract TestDynamicNFT is ERC721 {
+    using Strings for uint256;
+}
