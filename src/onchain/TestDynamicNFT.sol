@@ -36,6 +36,9 @@ contract TestDynamicNFT is ERC721 {
 
     constructor() ERC721("Simple Dynamic NFT", "SDYNFT") {}
 
+   /**
+     * @dev Mint a new NFT - anyone can mint for testing
+     */
     function mint(address to) public returns (uint256) {
         uint256 tokenId = _tokenIdCounter;
         _tokenIdCounter++;
