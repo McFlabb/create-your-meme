@@ -141,6 +141,9 @@ contract TestDynamicNFT is ERC721 {
         return _tokenIdCounter;
     }
 
+    /**
+     * @dev Simple base64 encoding for metadata
+     */
     function _base64Encode(bytes memory data) internal pure returns (string memory) {
         if (data.length == 0) return "";
 
