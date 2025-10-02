@@ -25,5 +25,7 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     //////////////////////
     // State variables //
     ////////////////////
+
+    /// @notice Initial supply of the token minted at deployment
        uint256 private initialSupply;
 }
