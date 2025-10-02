@@ -10,6 +10,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
  */
 contract TestDynamicNFT is ERC721 {
     using Strings for uint256;
+
+    // Storage
         uint256 private _tokenIdCounter;
             uint256 private _version = 0;
 
@@ -20,4 +22,7 @@ contract TestDynamicNFT is ERC721 {
         string currentTimeOfDay;
         uint256 createdAt;
     }
+
+    // Mappings
+    mapping(uint256 => NFTState) public nftStates;
 }
