@@ -53,4 +53,26 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     ////////////////
     // Functions //
     //////////////
+
+    constructor(
+        address initialOwner,
+        string memory tokenName,
+        string memory tokenSymbol,
+        uint256 _initialSupply,
+        uint256 _maxSupply,
+        bool _canMint,
+        bool _canBurn,
+        bool _supplyCapEnabled
+    )
+        ERC20(tokenName, tokenSymbol)
+        Ownable(initialOwner)
+    {
+        initialSupply = _initialSupply;
+        maxSupply = _maxSupply;
+        canMint = _canMint;
+        canBurn = _canBurn;
+        supplyCapEnabled = _supplyCapEnabled;
+        _mint(initialOwner, _initialSupply);
+    }
+
 }
