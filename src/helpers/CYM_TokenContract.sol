@@ -87,4 +87,12 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
         _mint(initialOwner, _initialSupply);
     }
 
+    function mint(address to, uint256 amount) external onlyOwner {
+        if (!canMint) revert MintingIsDisabled();
+        if (supplyCapEnabled) {
+            if (totalSupply() + amount > maxSupply) revert MaxSupplyReached();
+        }
+        _mint(to, amount);
+        emit Mint(to, amount);
+    }
 }
