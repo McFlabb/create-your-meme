@@ -47,6 +47,7 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     /// @notice Emit when a new token is minted
     event Mint(address indexed from, uint256 indexed amount);
 
+    /// @notice Emit when a token is burned
     event Burn(address indexed from, uint256 indexed amount);
 
 }
