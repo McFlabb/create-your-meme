@@ -144,4 +144,8 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     function unpause() public onlyOwner {
         _unpause();
     }
+
+    ////////////////
+    // Overrides //
+    //////////////
 }
