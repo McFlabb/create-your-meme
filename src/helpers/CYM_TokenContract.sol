@@ -135,6 +135,12 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
         _pause();
     }
 
+    /**
+     * @dev Unpauses all token transfers.
+     * Can only be called by the contract owner.
+     *
+     * Emits an {Unpaused} event from the parent `ERC20Pausable` contract.
+     */
     function unpause() public onlyOwner {
         _unpause();
     }
