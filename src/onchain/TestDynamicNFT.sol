@@ -133,4 +133,8 @@ contract TestDynamicNFT is ERC721 {
         require(_ownerOf(tokenId) != address(0), "Token does not exist");
         return nftStates[tokenId];
     }
+
+    function totalSupply() external view returns (uint256) {
+        return _tokenIdCounter;
+    }
 }
