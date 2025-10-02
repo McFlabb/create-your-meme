@@ -13,4 +13,11 @@ contract TestDynamicNFT is ERC721 {
         uint256 private _tokenIdCounter;
             uint256 private _version = 0;
 
+    // Simplified NFT State
+    struct NFTState {
+        uint256 userActionCount;
+        string currentWeather;
+        string currentTimeOfDay;
+        uint256 createdAt;
+    }
 }
