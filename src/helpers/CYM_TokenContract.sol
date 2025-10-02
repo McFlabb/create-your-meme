@@ -35,6 +35,7 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     /// @notice Total supply of the token
     bool private supplyCapEnabled;
 
+    /// @notice Whether the token can be minted
     bool private canMint;
 
 }
