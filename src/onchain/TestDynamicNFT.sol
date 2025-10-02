@@ -25,4 +25,7 @@ contract TestDynamicNFT is ERC721 {
 
     // Mappings
     mapping(uint256 => NFTState) public nftStates;
+
+    // Events
+    event NFTMinted(uint256 indexed tokenId, address indexed owner);
 }
