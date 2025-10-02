@@ -99,6 +99,9 @@ contract TestDynamicNFT is ERC721 {
         return uint256(keccak256(abi.encodePacked(block.timestamp, block.prevrandao, seed, salt)));
     }
 
+    /**
+     * @dev Override tokenURI to return dynamic metadata
+     */
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         require(_ownerOf(tokenId) != address(0), "Token does not exist");
 
