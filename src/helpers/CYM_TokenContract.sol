@@ -109,6 +109,16 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
         emit Mint(to, amount);
     }
 
+    /**
+     * @dev Burns a specified amount of tokens from the caller's account.
+     *
+     * Emits a {Burn} event.
+     *
+     * Requirements:
+     * - `canBurn` must be true.
+     *
+     * @param amount The amount of tokens to burn.
+     */
     function burn(uint256 amount) external {
         if (!canBurn) revert BurningIsDisabled();
         _burn(msg.sender, amount);
