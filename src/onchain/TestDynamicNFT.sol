@@ -126,6 +126,9 @@ contract TestDynamicNFT is ERC721 {
         return string(abi.encodePacked("data:application/json;base64,", _base64Encode(bytes(json))));
     }
 
+    /**
+     * @dev Get NFT state for a token
+     */
     function getNFTState(uint256 tokenId) external view returns (NFTState memory) {
         require(_ownerOf(tokenId) != address(0), "Token does not exist");
         return nftStates[tokenId];
