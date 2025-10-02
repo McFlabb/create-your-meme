@@ -148,7 +148,14 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     ////////////////
     // Overrides //
     //////////////
-
+    /**
+     * @dev Overridden function to handle token transfers while pausing is enabled.
+     * Ensures that the token transfers are correctly restricted when the contract is paused.
+     *
+     * @param from The address from which tokens are being transferred.
+     * @param to The address to which tokens are being transferred.
+     * @param value The amount of tokens being transferred.
+     */
         function _update(address from, address to, uint256 value) internal override(ERC20, ERC20Pausable) {
         super._update(from, to, value);
     }
