@@ -14,4 +14,4 @@ import { ERC20Pausable } from "@openzeppelin/contracts/token/ERC20/extensions/ER
  *
  * Inherits from OpenZeppelin's ERC20, ERC20Pausable, and Ownable contracts.
  */
-contract CYM_TokenContract { }
+contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {}
