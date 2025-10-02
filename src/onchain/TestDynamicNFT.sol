@@ -36,4 +36,21 @@ contract TestDynamicNFT is ERC721 {
 
     constructor() ERC721("Simple Dynamic NFT", "SDYNFT") {}
 
+    function mint(address to) public returns (uint256) {
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
+
+        _safeMint(to, tokenId);
+
+        // Initialize NFT state with random values
+        nftStates[tokenId] = NFTState({
+            userActionCount: 0,
+            currentWeather: weatherOptions[_pseudoRandom(tokenId, "weather") % weatherOptions.length],
+            currentTimeOfDay: timeOptions[_pseudoRandom(tokenId, "time") % timeOptions.length],
+            createdAt: block.timestamp
+        });
+
+        emit NFTMinted(tokenId, to);
+        return tokenId;
+    }
 }
