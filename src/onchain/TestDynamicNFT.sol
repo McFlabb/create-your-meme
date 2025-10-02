@@ -10,4 +10,5 @@ import "@openzeppelin/contracts/utils/Strings.sol";
  */
 contract TestDynamicNFT is ERC721 {
     using Strings for uint256;
+        uint256 private _tokenIdCounter;
 }
