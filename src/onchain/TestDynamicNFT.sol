@@ -69,6 +69,9 @@ contract TestDynamicNFT is ERC721 {
         emit NFTUpdated(tokenId, "weather", newWeather);
     }
 
+    /**
+     * @dev Update time of day - anyone can call for testing
+     */
     function updateTimeOfDay(uint256 tokenId) external {
         require(_ownerOf(tokenId) != address(0), "Token does not exist");
 
