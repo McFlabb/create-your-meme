@@ -38,6 +38,7 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     /// @notice Whether the token can be minted
     bool private canMint;
 
+    /// @notice Whether the token can be burned
     bool private canBurn;
 
 }
