@@ -44,4 +44,7 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     /////////////
     // Events //
     ///////////
+
+    event Mint(address indexed from, uint256 indexed amount);
+
 }
