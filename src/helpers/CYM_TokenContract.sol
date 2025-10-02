@@ -15,11 +15,11 @@ import { ERC20Pausable } from "@openzeppelin/contracts/token/ERC20/extensions/ER
  * Inherits from OpenZeppelin's ERC20, ERC20Pausable, and Ownable contracts.
  */
 contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
-        ////////////////////
+    ////////////////////
     // Custom Errors //
     //////////////////
-        error MintingIsDisabled();
-            error BurningIsDisabled();
+    error MintingIsDisabled();
+    error BurningIsDisabled();
     error MaxSupplyReached();
 
     //////////////////////
@@ -27,10 +27,10 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     ////////////////////
 
     /// @notice Initial supply of the token minted at deployment
-       uint256 private initialSupply;
+    uint256 private initialSupply;
 
     /// @notice Max supply of the token
-        uint256 private maxSupply;
+    uint256 private maxSupply;
 
     /// @notice Total supply of the token
     bool private supplyCapEnabled;
@@ -156,7 +156,7 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
      * @param to The address to which tokens are being transferred.
      * @param value The amount of tokens being transferred.
      */
-        function _update(address from, address to, uint256 value) internal override(ERC20, ERC20Pausable) {
+    function _update(address from, address to, uint256 value) internal override(ERC20, ERC20Pausable) {
         super._update(from, to, value);
     }
 }
