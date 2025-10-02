@@ -125,6 +125,12 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
         emit Burn(msg.sender, amount);
     }
 
+    /**
+     * @dev Pauses all token transfers.
+     * Can only be called by the contract owner.
+     *
+     * Emits a {Paused} event from the parent `ERC20Pausable` contract.
+     */
     function pause() public onlyOwner {
         _pause();
     }
