@@ -53,7 +53,19 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
     ////////////////
     // Functions //
     //////////////
-
+    /**
+     * @dev Deploys the token contract, initializes the token with a name, symbol, and initial supply,
+     * and sets the owner, minting, burning, and supply cap configurations.
+     *
+     * @param initialOwner The address that will initially own the token contract.
+     * @param tokenName The name of the token (e.g., "MyToken").
+     * @param tokenSymbol The symbol of the token (e.g., "MTK").
+     * @param _initialSupply The initial token supply minted to the owner.
+     * @param _maxSupply The maximum supply that can be minted (if capped).
+     * @param _canMint Boolean indicating whether minting is allowed.
+     * @param _canBurn Boolean indicating whether burning is allowed.
+     * @param _supplyCapEnabled Boolean indicating whether a maximum supply cap is enforced.
+     */
     constructor(
         address initialOwner,
         string memory tokenName,
