@@ -22,4 +22,7 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
             error BurningIsDisabled();
     error MaxSupplyReached();
 
+    //////////////////////
+    // State variables //
+    ////////////////////
 }
