@@ -134,6 +134,9 @@ contract TestDynamicNFT is ERC721 {
         return nftStates[tokenId];
     }
 
+    /**
+     * @dev Get total supply
+     */
     function totalSupply() external view returns (uint256) {
         return _tokenIdCounter;
     }
