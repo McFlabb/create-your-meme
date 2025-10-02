@@ -98,4 +98,28 @@ contract TestDynamicNFT is ERC721 {
     function _pseudoRandom(uint256 seed, string memory salt) internal view returns (uint256) {
         return uint256(keccak256(abi.encodePacked(block.timestamp, block.prevrandao, seed, salt)));
     }
+
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        require(_ownerOf(tokenId) != address(0), "Token does not exist");
+
+        NFTState memory state = nftStates[tokenId];
+
+        // Create simple JSON metadata
+        string memory json = string(
+            abi.encodePacked(
+                '{"name": "Simple Dynamic NFT #',
+                tokenId.toString(),
+                '", "description": "A simple dynamic NFT for testing", "attributes": [',
+                '{"trait_type": "Weather", "value": "',
+                state.currentWeather,
+                '"}, {"trait_type": "Time of Day", "value": "',
+                state.currentTimeOfDay,
+                '"}, {"trait_type": "User Actions", "value": ',
+                state.userActionCount.toString(),
+                "}]}"
+            )
+        );
+
+        return string(abi.encodePacked("data:application/json;base64,", _base64Encode(bytes(json))));
+    }
 }
