@@ -68,4 +68,13 @@ contract TestDynamicNFT is ERC721 {
 
         emit NFTUpdated(tokenId, "weather", newWeather);
     }
+
+    function updateTimeOfDay(uint256 tokenId) external {
+        require(_ownerOf(tokenId) != address(0), "Token does not exist");
+
+        string memory newTimeOfDay = timeOptions[_pseudoRandom(block.timestamp, "time") % timeOptions.length];
+        nftStates[tokenId].currentTimeOfDay = newTimeOfDay;
+
+        emit NFTUpdated(tokenId, "timeOfDay", newTimeOfDay);
+    }
 }
