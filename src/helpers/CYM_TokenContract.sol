@@ -87,6 +87,19 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
         _mint(initialOwner, _initialSupply);
     }
 
+    /**
+     * @dev Mints new tokens to the specified address.
+     * Can only be called by the contract owner.
+     *
+     * Emits a {Mint} event.
+     *
+     * Requirements:
+     * - `canMint` must be true.
+     * - If `supplyCapEnabled` is true, the total supply after minting must not exceed `maxSupply`.
+     *
+     * @param to The address to receive the minted tokens.
+     * @param amount The amount of tokens to mint.
+     */
     function mint(address to, uint256 amount) external onlyOwner {
         if (!canMint) revert MintingIsDisabled();
         if (supplyCapEnabled) {
