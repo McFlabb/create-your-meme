@@ -11,9 +11,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract TestDynamicNFT is ERC721 {
     using Strings for uint256;
 
-    // Storage
-        uint256 private _tokenIdCounter;
-            uint256 private _version = 0;
+    uint256 private _tokenIdCounter;
+    uint256 private _version = 2;
 
     // Simplified NFT State
     struct NFTState {
@@ -23,20 +22,20 @@ contract TestDynamicNFT is ERC721 {
         uint256 createdAt;
     }
 
-    // Mappings
+    // Storage
     mapping(uint256 => NFTState) public nftStates;
 
     // Events
     event NFTMinted(uint256 indexed tokenId, address indexed owner);
-        event NFTUpdated(uint256 indexed tokenId, string updateType, string newValue);
+    event NFTUpdated(uint256 indexed tokenId, string updateType, string newValue);
 
     // Predefined weather and time options for testing
     string[] private weatherOptions = ["sunny", "rainy", "cloudt", "snowy", "foggy"];
     string[] private timeOptions = ["morning", "afternoon", "evening", "night"];
 
-    constructor() ERC721("Simple Dynamic NFT", "SDYNFT") {}
+    constructor() ERC721("Simple Dynamic NFT", "SDYNFT") { }
 
-   /**
+    /**
      * @dev Mint a new NFT - anyone can mint for testing
      */
     function mint(address to) public returns (uint256) {
