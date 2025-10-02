@@ -108,4 +108,10 @@ contract CYM_TokenContract is ERC20, ERC20Pausable, Ownable {
         _mint(to, amount);
         emit Mint(to, amount);
     }
+
+    function burn(uint256 amount) external {
+        if (!canBurn) revert BurningIsDisabled();
+        _burn(msg.sender, amount);
+        emit Burn(msg.sender, amount);
+    }
 }
