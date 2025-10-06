@@ -13,4 +13,9 @@ import { CYM_TokenContract } from "../helpers/CYM_TokenContract.sol";
  * @dev This means past signed txs data is available in this contract for more functions
  * after tx is executed.
  */
-contract CYM_FactoryToken is Ownable {}
+contract CYM_FactoryToken is Ownable {
+        ////////////////////
+    // Custom Errors //
+    //////////////////
+    error FactoryTokenContract__onlyMultiSigContract();
+}
