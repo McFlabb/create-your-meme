@@ -27,8 +27,8 @@ contract CYM_FactoryToken is Ownable {
     /**
      * @notice Variables.
      */
-    MultiSigContract public multiSigContract;
-    LiquidityManager public liquidityManager;
+    CYM_MultiSigContract public multiSigContract;
+    CYM_LiquidityManager public liquidityManager;
     TxData[] public txArray;
     uint256 public TX_ID;
     address public USDC_ADDRESS;
