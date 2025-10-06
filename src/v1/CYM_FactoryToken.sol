@@ -25,6 +25,25 @@ contract CYM_FactoryToken is Ownable {
     error EmptySymbol();
 
     /**
+     * @notice Structs.
+     */
+    struct TxData {
+        uint256 txId;
+        address owner;
+        address[] signers;
+        bool isPending;
+        string tokenName;
+        string tokenSymbol;
+        uint256 totalSupply;
+        uint256 maxSupply;
+        bool canMint;
+        bool canBurn;
+        bool supplyCapEnabled;
+        address tokenAddress;
+        string ipfsHash;
+    }
+    
+    /**
      * @notice Variables.
      */
     CYM_MultiSigContract public multiSigContract;
