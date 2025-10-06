@@ -21,5 +21,6 @@ contract CYM_FactoryToken is Ownable {
     error TransactionAlreadyExecuted();
     error InvalidSignerCount();
     error InvalidSupply();
+    error EmptyName();
 
 }
