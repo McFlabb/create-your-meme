@@ -42,7 +42,7 @@ contract CYM_FactoryToken is Ownable {
         address tokenAddress;
         string ipfsHash;
     }
-    
+
     /**
      * @notice Variables.
      */
@@ -52,6 +52,11 @@ contract CYM_FactoryToken is Ownable {
     uint256 public TX_ID;
     address public USDC_ADDRESS;
 
+    /**
+     * @notice Mappings.
+     */
+    mapping(address => uint256) public ownerToTxId;
+    
     constructor(
         address _multiSigContract,
         address _liquidityManager,
@@ -60,8 +65,8 @@ contract CYM_FactoryToken is Ownable {
     )
         Ownable(initialOwner)
     {
-        multiSigContract = MultiSigContract(_multiSigContract);
-        liquidityManager = LiquidityManager(_liquidityManager);
+        multiSigContract = CYM_MultiSigContract(_multiSigContract);
+        liquidityManager = CYM_LiquidityManager(_liquidityManager);
         TxData memory constructorTx = TxData({
             txId: 0,
             owner: address(0),
