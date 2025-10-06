@@ -24,4 +24,34 @@ contract CYM_FactoryToken is Ownable {
     error EmptyName();
     error EmptySymbol();
 
+    constructor(
+        address _multiSigContract,
+        address _liquidityManager,
+        address _USDC,
+        address initialOwner
+    )
+        Ownable(initialOwner)
+    {
+        multiSigContract = MultiSigContract(_multiSigContract);
+        liquidityManager = LiquidityManager(_liquidityManager);
+        TxData memory constructorTx = TxData({
+            txId: 0,
+            owner: address(0),
+            signers: new address[](0),
+            isPending: true,
+            tokenName: "",
+            tokenSymbol: "",
+            totalSupply: 0,
+            maxSupply: 0,
+            canMint: false,
+            canBurn: false,
+            supplyCapEnabled: false,
+            tokenAddress: address(0),
+            ipfsHash: ""
+        });
+        txArray.push(constructorTx);
+        ownerToTxId[address(0)] = 0;
+        TX_ID = 1;
+        USDC_ADDRESS = _USDC;
+    }
 }
