@@ -14,7 +14,7 @@ import { CYM_LiquidityManager } from "./CYM_LiquidityManager.sol";
  * after tx is executed.
  */
 contract CYM_FactoryToken is Ownable {
-        ////////////////////
+    ////////////////////
     // Custom Errors //
     //////////////////
     error FactoryTokenContract__onlyMultiSigContract();
@@ -56,7 +56,7 @@ contract CYM_FactoryToken is Ownable {
      * @notice Mappings.
      */
     mapping(address => uint256) public ownerToTxId;
-    
+
     constructor(
         address _multiSigContract,
         address _liquidityManager,
