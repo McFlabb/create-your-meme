@@ -18,4 +18,6 @@ contract CYM_FactoryToken is Ownable {
     // Custom Errors //
     //////////////////
     error FactoryTokenContract__onlyMultiSigContract();
+    error TransactionAlreadyExecuted();
+
 }
