@@ -20,5 +20,6 @@ contract CYM_FactoryToken is Ownable {
     error FactoryTokenContract__onlyMultiSigContract();
     error TransactionAlreadyExecuted();
     error InvalidSignerCount();
+    error InvalidSupply();
 
 }
