@@ -57,6 +57,13 @@ contract CYM_FactoryToken is Ownable {
      */
     mapping(address => uint256) public ownerToTxId;
 
+    /**
+     * @notice Events.
+     */
+    event TransactionQueued(
+        uint256 indexed txId, address indexed owner, address[] signers, string tokenName, string tokenSymbol
+    );
+    
     constructor(
         address _multiSigContract,
         address _liquidityManager,
