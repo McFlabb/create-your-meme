@@ -57,6 +57,36 @@ contract CYM_FactoryToken is Ownable {
      */
     mapping(address => uint256) public ownerToTxId;
 
+    /**
+     * @notice Events.
+     */
+    event TransactionQueued(
+        uint256 indexed txId, address indexed owner, address[] signers, string tokenName, string tokenSymbol
+    );
+
+    /// @notice Emit when a new token is created
+    event MemecoinCreated(
+        address indexed owner, address indexed tokenAddress, string indexed name, string symbol, uint256 supply
+    );
+
+    /**
+     * @notice Modifiers.
+     */
+    modifier onlyMultiSigContract() {
+        if (msg.sender != address(multiSigContract)) {
+            revert FactoryTokenContract__onlyMultiSigContract();
+        }
+        _;
+    }
+
+    /// @notice modifier to ensure only pending txs can be executed
+    modifier onlyPendigTx(uint256 _txId) {
+        if (!txArray[_txId].isPending) {
+            revert TransactionAlreadyExecuted();
+        }
+        _;
+    }
+
     constructor(
         address _multiSigContract,
         address _liquidityManager,
@@ -86,5 +116,67 @@ contract CYM_FactoryToken is Ownable {
         ownerToTxId[address(0)] = 0;
         TX_ID = 1;
         USDC_ADDRESS = _USDC;
+    }
+
+    /**
+     * @notice Creates a pending transaction to initialize a new meme token.
+     * @dev Actual token creation happens once the MultiSigContract approves the transaction.
+     * @param _signers The list of signers required to approve this transaction in the MultiSigContract.
+     * @param _owner The address of the token owner.
+     * @param _tokenName The name of the token to be created.
+     * @param _tokenSymbol The symbol of the token to be created.
+     * @param _totalSupply The initial token supply.
+     * @param _maxSupply The maximum token supply, if a cap is enabled.
+     * @param _canMint Whether the token has minting capabilities.
+     * @param _canBurn Whether the token has burning capabilities.
+     * @param _supplyCapEnabled Whether the token has a supply cap.
+     * @return txId The ID of the newly created transaction.
+     */
+    function queueCreateMemecoin(
+        address[] memory _signers,
+        address _owner,
+        string memory _tokenName,
+        string memory _tokenSymbol,
+        uint256 _totalSupply,
+        uint256 _maxSupply,
+        bool _canMint,
+        bool _canBurn,
+        bool _supplyCapEnabled,
+        string memory _ipfsHash
+    )
+        external
+        returns (uint256 txId)
+    {
+        if (_signers.length < 2) {
+            revert InvalidSignerCount();
+        }
+        if (bytes(_tokenName).length == 0) {
+            revert EmptyName();
+        }
+        if (bytes(_tokenSymbol).length == 0) {
+            revert EmptySymbol();
+        }
+        if (_totalSupply <= 0) {
+            if (_supplyCapEnabled) {
+                if (_maxSupply < _totalSupply) {
+                    revert InvalidSupply();
+                }
+            }
+            if (_maxSupply < _totalSupply) {
+                revert InvalidSupply();
+            }
+        }
+        txId = _handleQueue(
+            _signers,
+            _owner,
+            _tokenName,
+            _tokenSymbol,
+            _totalSupply,
+            _maxSupply,
+            _canMint,
+            _canBurn,
+            _supplyCapEnabled,
+            _ipfsHash
+        );
     }
 }
