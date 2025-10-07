@@ -86,7 +86,7 @@ contract CYM_FactoryToken is Ownable {
         }
         _;
     }
-    
+
     constructor(
         address _multiSigContract,
         address _liquidityManager,
@@ -116,5 +116,53 @@ contract CYM_FactoryToken is Ownable {
         ownerToTxId[address(0)] = 0;
         TX_ID = 1;
         USDC_ADDRESS = _USDC;
+    }
+
+    function queueCreateMemecoin(
+        address[] memory _signers,
+        address _owner,
+        string memory _tokenName,
+        string memory _tokenSymbol,
+        uint256 _totalSupply,
+        uint256 _maxSupply,
+        bool _canMint,
+        bool _canBurn,
+        bool _supplyCapEnabled,
+        string memory _ipfsHash
+    )
+        external
+        returns (uint256 txId)
+    {
+        if (_signers.length < 2) {
+            revert InvalidSignerCount();
+        }
+        if (bytes(_tokenName).length == 0) {
+            revert EmptyName();
+        }
+        if (bytes(_tokenSymbol).length == 0) {
+            revert EmptySymbol();
+        }
+        if (_totalSupply <= 0) {
+            if (_supplyCapEnabled) {
+                if (_maxSupply < _totalSupply) {
+                    revert InvalidSupply();
+                }
+            }
+            if (_maxSupply < _totalSupply) {
+                revert InvalidSupply();
+            }
+        }
+        txId = _handleQueue(
+            _signers,
+            _owner,
+            _tokenName,
+            _tokenSymbol,
+            _totalSupply,
+            _maxSupply,
+            _canMint,
+            _canBurn,
+            _supplyCapEnabled,
+            _ipfsHash
+        );
     }
 }
