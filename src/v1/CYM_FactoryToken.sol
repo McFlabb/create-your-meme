@@ -118,6 +118,20 @@ contract CYM_FactoryToken is Ownable {
         USDC_ADDRESS = _USDC;
     }
 
+    /**
+     * @notice Creates a pending transaction to initialize a new meme token.
+     * @dev Actual token creation happens once the MultiSigContract approves the transaction.
+     * @param _signers The list of signers required to approve this transaction in the MultiSigContract.
+     * @param _owner The address of the token owner.
+     * @param _tokenName The name of the token to be created.
+     * @param _tokenSymbol The symbol of the token to be created.
+     * @param _totalSupply The initial token supply.
+     * @param _maxSupply The maximum token supply, if a cap is enabled.
+     * @param _canMint Whether the token has minting capabilities.
+     * @param _canBurn Whether the token has burning capabilities.
+     * @param _supplyCapEnabled Whether the token has a supply cap.
+     * @return txId The ID of the newly created transaction.
+     */
     function queueCreateMemecoin(
         address[] memory _signers,
         address _owner,
