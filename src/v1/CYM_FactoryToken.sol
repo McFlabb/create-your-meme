@@ -68,6 +68,16 @@ contract CYM_FactoryToken is Ownable {
     event MemecoinCreated(
         address indexed owner, address indexed tokenAddress, string indexed name, string symbol, uint256 supply
     );
+
+        /**
+     * @notice Modifiers.
+     */
+    modifier onlyMultiSigContract() {
+        if (msg.sender != address(multiSigContract)) {
+            revert FactoryTokenContract__onlyMultiSigContract();
+        }
+        _;
+    }
     
     constructor(
         address _multiSigContract,
