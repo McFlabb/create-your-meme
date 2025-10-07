@@ -63,6 +63,11 @@ contract CYM_FactoryToken is Ownable {
     event TransactionQueued(
         uint256 indexed txId, address indexed owner, address[] signers, string tokenName, string tokenSymbol
     );
+
+        /// @notice Emit when a new token is created
+    event MemecoinCreated(
+        address indexed owner, address indexed tokenAddress, string indexed name, string symbol, uint256 supply
+    );
     
     constructor(
         address _multiSigContract,
