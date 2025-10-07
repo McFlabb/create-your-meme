@@ -64,12 +64,12 @@ contract CYM_FactoryToken is Ownable {
         uint256 indexed txId, address indexed owner, address[] signers, string tokenName, string tokenSymbol
     );
 
-        /// @notice Emit when a new token is created
+    /// @notice Emit when a new token is created
     event MemecoinCreated(
         address indexed owner, address indexed tokenAddress, string indexed name, string symbol, uint256 supply
     );
 
-        /**
+    /**
      * @notice Modifiers.
      */
     modifier onlyMultiSigContract() {
@@ -79,7 +79,7 @@ contract CYM_FactoryToken is Ownable {
         _;
     }
 
-        /// @notice modifier to ensure only pending txs can be executed
+    /// @notice modifier to ensure only pending txs can be executed
     modifier onlyPendigTx(uint256 _txId) {
         if (!txArray[_txId].isPending) {
             revert TransactionAlreadyExecuted();
