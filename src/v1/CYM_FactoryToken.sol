@@ -78,6 +78,14 @@ contract CYM_FactoryToken is Ownable {
         }
         _;
     }
+
+        /// @notice modifier to ensure only pending txs can be executed
+    modifier onlyPendigTx(uint256 _txId) {
+        if (!txArray[_txId].isPending) {
+            revert TransactionAlreadyExecuted();
+        }
+        _;
+    }
     
     constructor(
         address _multiSigContract,
