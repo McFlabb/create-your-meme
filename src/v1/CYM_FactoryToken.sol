@@ -179,4 +179,8 @@ contract CYM_FactoryToken is Ownable {
             _ipfsHash
         );
     }
+
+    function executeCreateMemecoin(uint256 _txId) public onlyMultiSigContract onlyPendigTx(_txId) {
+        _createMemecoin(_txId);
+    }
 }
