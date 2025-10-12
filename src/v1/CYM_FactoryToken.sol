@@ -198,6 +198,10 @@ contract CYM_FactoryToken is Ownable {
         return txArray[_txId];
     }
 
+    /**
+     * @notice Handles the internal queuing of memecoin creation, waiting for signatures.
+     * @return txId data of the transaction
+     */
     function _handleQueue(
         address[] memory _signers,
         address _owner,
