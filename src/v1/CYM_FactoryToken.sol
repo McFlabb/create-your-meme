@@ -180,6 +180,11 @@ contract CYM_FactoryToken is Ownable {
         );
     }
 
+    /**
+     * @notice Completes the pending transaction to create the meme token after MultiSigContract approval.
+     * @param _txId The ID of the transaction to be executed.
+     * @dev Callable only by the MultiSigContract once all required signatures are collected.
+     */
     function executeCreateMemecoin(uint256 _txId) public onlyMultiSigContract onlyPendigTx(_txId) {
         _createMemecoin(_txId);
     }
