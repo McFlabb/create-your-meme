@@ -197,4 +197,42 @@ contract CYM_FactoryToken is Ownable {
         function getTxData(uint256 _txId) external view returns (TxData memory) {
         return txArray[_txId];
     }
+
+    function _handleQueue(
+        address[] memory _signers,
+        address _owner,
+        string memory _tokenName,
+        string memory _tokenSymbol,
+        uint256 _totalSupply,
+        uint256 _maxSupply,
+        bool _canMint,
+        bool _canBurn,
+        bool _supplyCapEnabled,
+        string memory _ipfsHash
+    )
+        internal
+        returns (uint256 txId)
+    {
+        TxData memory tempTx = TxData({
+            txId: TX_ID,
+            owner: _owner,
+            signers: _signers,
+            isPending: true,
+            tokenName: _tokenName,
+            tokenSymbol: _tokenSymbol,
+            totalSupply: _totalSupply,
+            maxSupply: _maxSupply,
+            canMint: _canMint,
+            canBurn: _canBurn,
+            supplyCapEnabled: _supplyCapEnabled,
+            tokenAddress: address(0),
+            ipfsHash: _ipfsHash
+        });
+        txArray.push(tempTx);
+        ownerToTxId[_owner] = TX_ID;
+        multiSigContract.queueTx(TX_ID, _owner, _signers);
+        emit TransactionQueued(TX_ID, _owner, _signers, _tokenName, _tokenSymbol);
+        txId = TX_ID;
+        TX_ID += 1;
+    }
 }
