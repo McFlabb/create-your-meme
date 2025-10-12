@@ -194,7 +194,7 @@ contract CYM_FactoryToken is Ownable {
      * @param _txId The ID of the transaction to fetch.
      * @return TxData memory The transaction data for the specified ID.
      */
-        function getTxData(uint256 _txId) external view returns (TxData memory) {
+    function getTxData(uint256 _txId) external view returns (TxData memory) {
         return txArray[_txId];
     }
 
