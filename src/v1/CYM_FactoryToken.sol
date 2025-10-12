@@ -188,4 +188,8 @@ contract CYM_FactoryToken is Ownable {
     function executeCreateMemecoin(uint256 _txId) public onlyMultiSigContract onlyPendigTx(_txId) {
         _createMemecoin(_txId);
     }
+
+        function getTxData(uint256 _txId) external view returns (TxData memory) {
+        return txArray[_txId];
+    }
 }
