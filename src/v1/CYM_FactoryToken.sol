@@ -239,4 +239,39 @@ contract CYM_FactoryToken is Ownable {
         txId = TX_ID;
         TX_ID += 1;
     }
+
+    /**
+     * @param _txId Id of the transaction.
+     * @dev Creates a new memecoin and initializes the liquidity pool for it.
+     * @return newToken ERC20 memecoin.
+     */
+    function _createMemecoin(uint256 _txId) internal returns (TokenContract newToken) {
+        TxData memory txData = txArray[_txId];
+        // Deploy new TokenContract for the memecoin
+        newToken = new TokenContract(
+            txData.owner,
+            txData.tokenName,
+            txData.tokenSymbol,
+            txData.totalSupply,
+            txData.maxSupply,
+            txData.canMint,
+            txData.canBurn,
+            txData.supplyCapEnabled
+        );
+
+        // Initialize the pool for the newly created token
+        liquidityManager.initializePool(
+            address(newToken),
+            address(USDC_ADDRESS), // USDT/USDC address
+            300, // swap fee (Uniswap's fee tiers: 0.01%->100, 0.05%->500, 0.3%->3000, 1%->10000)
+            60, // tick spacing (depends on fee tier: 0.01%->1, 0.05%->10, 0.3%->60, 1%->200)
+            79_228_162_514_264_337_593_543_950_336 // 0.0001 starting price (Q64.96 format)
+        );
+
+        txArray[_txId].isPending = false;
+        txArray[_txId].tokenAddress = address(newToken);
+        // Emit the MemecoinCreated event
+        emit MemecoinCreated(txData.owner, address(newToken), txData.tokenName, txData.tokenSymbol, txData.totalSupply);
+    }
+
 }
