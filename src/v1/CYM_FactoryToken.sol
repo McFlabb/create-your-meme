@@ -274,6 +274,10 @@ contract CYM_FactoryToken is Ownable {
         emit MemecoinCreated(txData.owner, address(newToken), txData.tokenName, txData.tokenSymbol, txData.totalSupply);
     }
 
+    /**
+     * @notice Updates the address of the liquidity manager.
+     * @param _liquidityManager Address of the liquidity manager.
+     */
     function updateLiquidityManager(address _liquidityManager) external onlyOwner {
         liquidityManager = LiquidityManager(_liquidityManager);
     }
