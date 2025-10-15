@@ -245,10 +245,10 @@ contract CYM_FactoryToken is Ownable {
      * @dev Creates a new memecoin and initializes the liquidity pool for it.
      * @return newToken ERC20 memecoin.
      */
-    function _createMemecoin(uint256 _txId) internal returns (TokenContract newToken) {
+    function _createMemecoin(uint256 _txId) internal returns (CYM_TokenContract newToken) {
         TxData memory txData = txArray[_txId];
-        // Deploy new TokenContract for the memecoin
-        newToken = new TokenContract(
+        // Deploy new CYM_TokenContract for the memecoin
+        newToken = new CYM_TokenContract(
             txData.owner,
             txData.tokenName,
             txData.tokenSymbol,
@@ -279,6 +279,14 @@ contract CYM_FactoryToken is Ownable {
      * @param _liquidityManager Address of the liquidity manager.
      */
     function updateLiquidityManager(address _liquidityManager) external onlyOwner {
-        liquidityManager = LiquidityManager(_liquidityManager);
+        liquidityManager = CYM_LiquidityManager(_liquidityManager);
+    }
+
+    /**
+     * @notice Returns the array of transactions.
+     * @return TxData[].
+     */
+    function getTokenArray() public view returns (TxData[] memory) {
+        return txArray;
     }
 }
