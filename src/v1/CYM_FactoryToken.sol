@@ -281,4 +281,8 @@ contract CYM_FactoryToken is Ownable {
     function updateLiquidityManager(address _liquidityManager) external onlyOwner {
         liquidityManager = LiquidityManager(_liquidityManager);
     }
+
+        function getTokenArray() public view returns (TxData[] memory) {
+        return txArray;
+    }
 }
