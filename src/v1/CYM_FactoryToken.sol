@@ -286,7 +286,7 @@ contract CYM_FactoryToken is Ownable {
      * @notice Returns the array of transactions.
      * @return TxData[].
      */
-        function getTokenArray() public view returns (TxData[] memory) {
+    function getTokenArray() public view returns (TxData[] memory) {
         return txArray;
     }
 }
