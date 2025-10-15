@@ -282,6 +282,10 @@ contract CYM_FactoryToken is Ownable {
         liquidityManager = LiquidityManager(_liquidityManager);
     }
 
+    /**
+     * @notice Returns the array of transactions.
+     * @return TxData[].
+     */
         function getTokenArray() public view returns (TxData[] memory) {
         return txArray;
     }
