@@ -14,4 +14,4 @@ import { DataLocation } from "@signprotocol/signprotocol-evm/src/models/DataLoca
  * Integrates Sign Protocol to manage on-chain signature attestations for enhanced transparency and validation.
  * @notice Works with FactoryTokenContract for meme token creation, with signers validating transactions.
  */
-contract CYM_MultiSigContract { }
+contract CYM_MultiSigContract is Ownable {}
