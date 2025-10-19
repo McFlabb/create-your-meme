@@ -27,7 +27,7 @@ contract CYM_MultiSigContract is Ownable {
     /// @notice Unique ID for the signature schema within the Sign Protocol.
     uint64 public signatureSchemaId;
 
-        ////////////////
+    ////////////////
     // Functions //
     //////////////
     /**
