@@ -14,4 +14,17 @@ import { DataLocation } from "@signprotocol/signprotocol-evm/src/models/DataLoca
  * Integrates Sign Protocol to manage on-chain signature attestations for enhanced transparency and validation.
  * @notice Works with FactoryTokenContract for meme token creation, with signers validating transactions.
  */
-contract CYM_MultiSigContract is Ownable {}
+contract CYM_MultiSigContract is Ownable {
+
+        ////////////////
+    // Functions //
+    //////////////
+    /**
+     * @param _spInstance Address of the Sign Protocol instance.
+     * @param _signatureSchemaId Unique schema ID for signature verification within Sign Protocol.
+     */
+    constructor(address _spInstance, uint64 _signatureSchemaId) Ownable(msg.sender) {
+        spInstance = ISP(_spInstance);
+        signatureSchemaId = _signatureSchemaId;
+    }
+}
