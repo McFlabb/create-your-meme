@@ -15,6 +15,17 @@ import { DataLocation } from "@signprotocol/signprotocol-evm/src/models/DataLoca
  * @notice Works with FactoryTokenContract for meme token creation, with signers validating transactions.
  */
 contract CYM_MultiSigContract is Ownable {
+    //////////////////////
+    // State variables //
+    ////////////////////
+    /// @notice Reference to the factory token contract used for token creation.
+    CYM_FactoryToken public factoryTokenContract;
+
+    /// @notice Sign Protocol instance used for attestations.
+    ISP public spInstance;
+
+    /// @notice Unique ID for the signature schema within the Sign Protocol.
+    uint64 public signatureSchemaId;
 
         ////////////////
     // Functions //
