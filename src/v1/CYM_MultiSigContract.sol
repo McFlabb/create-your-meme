@@ -38,6 +38,9 @@ contract CYM_MultiSigContract is Ownable {
 
         /// @notice Mapping of transaction ID to its corresponding transaction data.
     mapping(uint256 => TxData) public pendingTxs;
+
+        /// @notice Mapping from signer address to their attestation ID in Sign Protocol.
+    mapping(address => uint64) public signerToAttestationId;
     
     ////////////////
     // Functions //
