@@ -35,6 +35,9 @@ contract CYM_MultiSigContract is Ownable {
         address[] signers; // List of addresses that can sign the transaction
         address[] signatures; // List of addresses that have already signed the transaction
     }
+
+        /// @notice Mapping of transaction ID to its corresponding transaction data.
+    mapping(uint256 => TxData) public pendingTxs;
     
     ////////////////
     // Functions //
