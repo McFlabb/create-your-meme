@@ -27,6 +27,15 @@ contract CYM_MultiSigContract is Ownable {
     /// @notice Unique ID for the signature schema within the Sign Protocol.
     uint64 public signatureSchemaId;
 
+
+    /// @notice Structure to store transaction data for multisig approvals.
+    struct TxData {
+        uint256 txId; // Unique ID of the transaction
+        address owner; // Owner of the transaction (token creator)
+        address[] signers; // List of addresses that can sign the transaction
+        address[] signatures; // List of addresses that have already signed the transaction
+    }
+    
     ////////////////
     // Functions //
     //////////////
