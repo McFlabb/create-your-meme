@@ -51,6 +51,23 @@ contract CYM_MultiSigContract is Ownable {
         }
         _;
     }
+
+        /**
+     * @dev Modifier restricting function access to signers of a specific transaction.
+     * @param _txId The transaction ID to verify signer access.
+     */
+    modifier onlySigner(uint256 _txId) {
+        address temp = address(0);
+        for (uint256 i = 0; i < pendingTxs[_txId].signers.length; i++) {
+            if (pendingTxs[_txId].signers[i] == msg.sender) {
+                temp = pendingTxs[_txId].signers[i];
+            }
+        }
+        if (temp != msg.sender) {
+            revert MultiSigContract__onlySigner();
+        }
+        _;
+    }
     
     ////////////////
     // Functions //
