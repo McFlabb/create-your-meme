@@ -15,6 +15,13 @@ import { DataLocation } from "@signprotocol/signprotocol-evm/src/models/DataLoca
  * @notice Works with FactoryTokenContract for meme token creation, with signers validating transactions.
  */
 contract CYM_MultiSigContract is Ownable {
+    ////////////////////
+    // Custom Errors //
+    //////////////////
+    error MultiSigContract__onlyFactoryTokenContract();
+    error MultiSigContract__onlySigner();
+    error MultiSigContract__alreadySigned();
+
     //////////////////////
     // State variables //
     ////////////////////
@@ -40,6 +47,33 @@ contract CYM_MultiSigContract is Ownable {
 
     /// @notice Mapping from signer address to their attestation ID in Sign Protocol.
     mapping(address => uint64) public signerToAttestationId;
+
+    /**
+     * @dev Modifier that ensures only the factory token contract or owner can call the function.
+     */
+    modifier onlyFactoryTokenContract() {
+        if (!((msg.sender == address(factoryTokenContract)) || (msg.sender == owner()))) {
+            revert MultiSigContract__onlyFactoryTokenContract();
+        }
+        _;
+    }
+
+    /**
+     * @dev Modifier restricting function access to signers of a specific transaction.
+     * @param _txId The transaction ID to verify signer access.
+     */
+    modifier onlySigner(uint256 _txId) {
+        address temp = address(0);
+        for (uint256 i = 0; i < pendingTxs[_txId].signers.length; i++) {
+            if (pendingTxs[_txId].signers[i] == msg.sender) {
+                temp = pendingTxs[_txId].signers[i];
+            }
+        }
+        if (temp != msg.sender) {
+            revert MultiSigContract__onlySigner();
+        }
+        _;
+    }
 
     ////////////////
     // Functions //
