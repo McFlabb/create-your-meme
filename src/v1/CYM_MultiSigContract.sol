@@ -41,6 +41,17 @@ contract CYM_MultiSigContract is Ownable {
     /// @notice Mapping from signer address to their attestation ID in Sign Protocol.
     mapping(address => uint64) public signerToAttestationId;
 
+
+    /**
+     * @dev Modifier that ensures only the factory token contract or owner can call the function.
+     */
+    modifier onlyFactoryTokenContract() {
+        if (!((msg.sender == address(factoryTokenContract)) || (msg.sender == owner()))) {
+            revert MultiSigContract__onlyFactoryTokenContract();
+        }
+        _;
+    }
+    
     ////////////////
     // Functions //
     //////////////
