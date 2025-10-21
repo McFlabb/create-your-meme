@@ -15,6 +15,13 @@ import { DataLocation } from "@signprotocol/signprotocol-evm/src/models/DataLoca
  * @notice Works with FactoryTokenContract for meme token creation, with signers validating transactions.
  */
 contract CYM_MultiSigContract is Ownable {
+        ////////////////////
+    // Custom Errors //
+    //////////////////
+    error MultiSigContract__onlyFactoryTokenContract();
+    error MultiSigContract__onlySigner();
+    error MultiSigContract__alreadySigned();
+    
     //////////////////////
     // State variables //
     ////////////////////
@@ -68,7 +75,7 @@ contract CYM_MultiSigContract is Ownable {
         }
         _;
     }
-    
+
     ////////////////
     // Functions //
     //////////////
