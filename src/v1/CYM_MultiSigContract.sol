@@ -92,6 +92,10 @@ contract CYM_MultiSigContract is Ownable {
         _;
     }
 
+/**
+     * @dev Modifier to ensure the signer has already signed the transaction.
+     * @param _txId The transaction ID to verify signing status.
+     */
     modifier alreadySigned(uint256 _txId) {
         address temp = address(0);
         for (uint256 i = 0; i < pendingTxs[_txId].signatures.length; i++) {
