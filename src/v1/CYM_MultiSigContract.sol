@@ -75,6 +75,19 @@ contract CYM_MultiSigContract is Ownable {
         _;
     }
 
+    modifier notAlreadySigned(uint256 _txId) {
+        address temp = address(0);
+        for (uint256 i = 0; i < pendingTxs[_txId].signatures.length; i++) {
+            if (pendingTxs[_txId].signatures[i] == msg.sender) {
+                temp = pendingTxs[_txId].signatures[i];
+            }
+        }
+        if (temp != address(0)) {
+            revert MultiSigContract__alreadySigned();
+        }
+        _;
+    }
+    
     ////////////////
     // Functions //
     //////////////
