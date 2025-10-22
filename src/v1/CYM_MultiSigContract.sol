@@ -75,6 +75,42 @@ contract CYM_MultiSigContract is Ownable {
         _;
     }
 
+    /**
+     * @dev Modifier to ensure a signer has not already signed the specified transaction.
+     * @param _txId The transaction ID being processed.
+     */
+    modifier notAlreadySigned(uint256 _txId) {
+        address temp = address(0);
+        for (uint256 i = 0; i < pendingTxs[_txId].signatures.length; i++) {
+            if (pendingTxs[_txId].signatures[i] == msg.sender) {
+                temp = pendingTxs[_txId].signatures[i];
+            }
+        }
+        if (temp != address(0)) {
+            revert MultiSigContract__alreadySigned();
+        }
+        _;
+    }
+
+    /**
+     * @dev Modifier to ensure the signer has already signed the transaction.
+     * @param _txId The transaction ID to verify signing status.
+     */
+    modifier alreadySigned(uint256 _txId) {
+        address temp = address(0);
+        for (uint256 i = 0; i < pendingTxs[_txId].signatures.length; i++) {
+            if (pendingTxs[_txId].signatures[i] == msg.sender) {
+                if (temp != msg.sender) {
+                    revert MultiSigContract__alreadySigned();
+                }
+            }
+        }
+        if (temp != msg.sender) {
+            revert MultiSigContract__alreadySigned();
+        }
+        _;
+    }
+
     ////////////////
     // Functions //
     //////////////
