@@ -75,6 +75,10 @@ contract CYM_MultiSigContract is Ownable {
         _;
     }
 
+    /**
+     * @dev Modifier to ensure a signer has not already signed the specified transaction.
+     * @param _txId The transaction ID being processed.
+     */
     modifier notAlreadySigned(uint256 _txId) {
         address temp = address(0);
         for (uint256 i = 0; i < pendingTxs[_txId].signatures.length; i++) {
@@ -87,7 +91,7 @@ contract CYM_MultiSigContract is Ownable {
         }
         _;
     }
-    
+
     ////////////////
     // Functions //
     //////////////
