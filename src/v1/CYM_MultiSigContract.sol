@@ -122,4 +122,34 @@ contract CYM_MultiSigContract is Ownable {
         spInstance = ISP(_spInstance);
         signatureSchemaId = _signatureSchemaId;
     }
+
+    /**
+     * @notice Assigns the address of the FactoryTokenContract.
+     * @param _factoryTokenContract Address of the factory token contract.
+     * @dev Callable only by the contract owner.
+     */
+    function setFactoryTokenContract(address _factoryTokenContract) external onlyOwner {
+        factoryTokenContract = CYM_FactoryToken(_factoryTokenContract);
+    }
+
+    /**
+     * @notice Adds a new transaction to the queue for multisig validation.
+     * @param _txId Unique transaction ID.
+     * @param _owner Address of the transaction owner.
+     * @param _signers List of authorized signers for this transaction.
+     * @dev Can only be called by the FactoryTokenContract.
+     */
+    function queueTx(uint256 _txId, address _owner, address[] memory _signers) external onlyFactoryTokenContract {
+        _handleQueue(_txId, _owner, _signers);
+    }
+
+    /**
+     * @notice Allows a signer to approve a queued transaction.
+     * @param _txId The transaction ID to be signed.
+     * @dev Ensures signer is authorized and hasn't signed yet. Creates an attestation on Sign Protocol.
+     */
+    function signTx(uint256 _txId) external onlySigner(_txId) notAlreadySigned(_txId) {
+        _handleSign(_txId);
+        _attestSign(_txId, msg.sender);
+    }
 }
