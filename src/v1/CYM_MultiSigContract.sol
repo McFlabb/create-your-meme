@@ -123,6 +123,11 @@ contract CYM_MultiSigContract is Ownable {
         signatureSchemaId = _signatureSchemaId;
     }
 
+    /**
+     * @notice Assigns the address of the FactoryTokenContract.
+     * @param _factoryTokenContract Address of the factory token contract.
+     * @dev Callable only by the contract owner.
+     */
     function setFactoryTokenContract(address _factoryTokenContract) external onlyOwner {
         factoryTokenContract = CYM_FactoryToken(_factoryTokenContract);
     }
