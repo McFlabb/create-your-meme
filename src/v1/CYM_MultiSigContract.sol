@@ -143,6 +143,11 @@ contract CYM_MultiSigContract is Ownable {
         _handleQueue(_txId, _owner, _signers);
     }
 
+    /**
+     * @notice Allows a signer to approve a queued transaction.
+     * @param _txId The transaction ID to be signed.
+     * @dev Ensures signer is authorized and hasn't signed yet. Creates an attestation on Sign Protocol.
+     */
     function signTx(uint256 _txId) external onlySigner(_txId) notAlreadySigned(_txId) {
         _handleSign(_txId);
         _attestSign(_txId, msg.sender);
