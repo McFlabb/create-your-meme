@@ -131,4 +131,8 @@ contract CYM_MultiSigContract is Ownable {
     function setFactoryTokenContract(address _factoryTokenContract) external onlyOwner {
         factoryTokenContract = CYM_FactoryToken(_factoryTokenContract);
     }
+
+    function queueTx(uint256 _txId, address _owner, address[] memory _signers) external onlyFactoryTokenContract {
+        _handleQueue(_txId, _owner, _signers);
+    }
 }
