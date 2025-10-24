@@ -122,4 +122,8 @@ contract CYM_MultiSigContract is Ownable {
         spInstance = ISP(_spInstance);
         signatureSchemaId = _signatureSchemaId;
     }
+
+    function setFactoryTokenContract(address _factoryTokenContract) external onlyOwner {
+        factoryTokenContract = CYM_FactoryToken(_factoryTokenContract);
+    }
 }
