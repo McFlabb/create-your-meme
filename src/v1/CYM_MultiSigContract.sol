@@ -142,4 +142,9 @@ contract CYM_MultiSigContract is Ownable {
     function queueTx(uint256 _txId, address _owner, address[] memory _signers) external onlyFactoryTokenContract {
         _handleQueue(_txId, _owner, _signers);
     }
+
+    function signTx(uint256 _txId) external onlySigner(_txId) notAlreadySigned(_txId) {
+        _handleSign(_txId);
+        _attestSign(_txId, msg.sender);
+    }
 }
