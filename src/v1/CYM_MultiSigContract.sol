@@ -132,6 +132,13 @@ contract CYM_MultiSigContract is Ownable {
         factoryTokenContract = CYM_FactoryToken(_factoryTokenContract);
     }
 
+    /**
+     * @notice Adds a new transaction to the queue for multisig validation.
+     * @param _txId Unique transaction ID.
+     * @param _owner Address of the transaction owner.
+     * @param _signers List of authorized signers for this transaction.
+     * @dev Can only be called by the FactoryTokenContract.
+     */
     function queueTx(uint256 _txId, address _owner, address[] memory _signers) external onlyFactoryTokenContract {
         _handleQueue(_txId, _owner, _signers);
     }
