@@ -153,6 +153,12 @@ contract CYM_MultiSigContract is Ownable {
         _attestSign(_txId, msg.sender);
     }
 
+    /**
+     * @notice Internally handles transaction queueing.
+     * @param _txId Transaction ID.
+     * @param _owner Owner of the transaction.
+     * @param _signers List of valid signers.
+     */
         function _handleQueue(uint256 _txId, address _owner, address[] memory _signers) internal {
         TxData memory tempTx = TxData({ txId: _txId, owner: _owner, signers: _signers, signatures: new address[](0) });
         pendingTxs[_txId] = tempTx;
