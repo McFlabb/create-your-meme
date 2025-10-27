@@ -152,4 +152,53 @@ contract CYM_MultiSigContract is Ownable {
         _handleSign(_txId);
         _attestSign(_txId, msg.sender);
     }
+
+    /**
+     * @notice Internally handles transaction queueing.
+     * @param _txId Transaction ID.
+     * @param _owner Owner of the transaction.
+     * @param _signers List of valid signers.
+     */
+    function _handleQueue(uint256 _txId, address _owner, address[] memory _signers) internal {
+        TxData memory tempTx = TxData({ txId: _txId, owner: _owner, signers: _signers, signatures: new address[](0) });
+        pendingTxs[_txId] = tempTx;
+    }
+
+    /**
+     * @dev Internal function to manage transaction signing.
+     * Executes transaction if all signers have signed.
+     * @param _txId The transaction ID.
+     */
+    function _handleSign(uint256 _txId) internal {
+        if (pendingTxs[_txId].signatures.length == (pendingTxs[_txId].signers.length - 1)) {
+            factoryTokenContract.executeCreateMemecoin(_txId);
+            delete pendingTxs[_txId]; // Clear the pending transaction after execution
+        } else {
+            pendingTxs[_txId].signatures.push(msg.sender);
+        }
+    }
+
+    /**
+     * @notice Internally attests the signing action on Sign Protocol.
+     * @param _txId Transaction ID.
+     * @param _signer Signer address.
+     */
+    function _attestSign(uint256 _txId, address _signer) internal {
+        bytes[] memory recipients = new bytes[](1);
+        recipients[0] = abi.encode(msg.sender);
+        Attestation memory a = Attestation({
+            schemaId: signatureSchemaId,
+            linkedAttestationId: 0,
+            attestTimestamp: uint64(block.timestamp),
+            revokeTimestamp: 0,
+            attester: address(this),
+            validUntil: 0,
+            dataLocation: DataLocation.ONCHAIN,
+            revoked: false,
+            recipients: recipients,
+            data: abi.encode(_txId, _signer)
+        });
+        uint64 attestationId = spInstance.attest(a, "", "", "");
+        signerToAttestationId[_signer] = attestationId;
+    }
 }
