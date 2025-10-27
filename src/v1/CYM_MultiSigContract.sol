@@ -163,4 +163,13 @@ contract CYM_MultiSigContract is Ownable {
         TxData memory tempTx = TxData({ txId: _txId, owner: _owner, signers: _signers, signatures: new address[](0) });
         pendingTxs[_txId] = tempTx;
     }
+
+        function _handleSign(uint256 _txId) internal {
+        if (pendingTxs[_txId].signatures.length == (pendingTxs[_txId].signers.length - 1)) {
+            factoryTokenContract.executeCreateMemecoin(_txId);
+            delete pendingTxs[_txId]; // Clear the pending transaction after execution
+        } else {
+            pendingTxs[_txId].signatures.push(msg.sender);
+        }
+    }
 }
