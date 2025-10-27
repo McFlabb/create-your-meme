@@ -159,7 +159,7 @@ contract CYM_MultiSigContract is Ownable {
      * @param _owner Owner of the transaction.
      * @param _signers List of valid signers.
      */
-        function _handleQueue(uint256 _txId, address _owner, address[] memory _signers) internal {
+    function _handleQueue(uint256 _txId, address _owner, address[] memory _signers) internal {
         TxData memory tempTx = TxData({ txId: _txId, owner: _owner, signers: _signers, signatures: new address[](0) });
         pendingTxs[_txId] = tempTx;
     }
@@ -169,7 +169,7 @@ contract CYM_MultiSigContract is Ownable {
      * Executes transaction if all signers have signed.
      * @param _txId The transaction ID.
      */
-        function _handleSign(uint256 _txId) internal {
+    function _handleSign(uint256 _txId) internal {
         if (pendingTxs[_txId].signatures.length == (pendingTxs[_txId].signers.length - 1)) {
             factoryTokenContract.executeCreateMemecoin(_txId);
             delete pendingTxs[_txId]; // Clear the pending transaction after execution
@@ -183,7 +183,7 @@ contract CYM_MultiSigContract is Ownable {
      * @param _txId Transaction ID.
      * @param _signer Signer address.
      */
-        function _attestSign(uint256 _txId, address _signer) internal {
+    function _attestSign(uint256 _txId, address _signer) internal {
         bytes[] memory recipients = new bytes[](1);
         recipients[0] = abi.encode(msg.sender);
         Attestation memory a = Attestation({
