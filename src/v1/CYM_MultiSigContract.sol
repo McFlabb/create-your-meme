@@ -164,6 +164,11 @@ contract CYM_MultiSigContract is Ownable {
         pendingTxs[_txId] = tempTx;
     }
 
+    /**
+     * @dev Internal function to manage transaction signing.
+     * Executes transaction if all signers have signed.
+     * @param _txId The transaction ID.
+     */
         function _handleSign(uint256 _txId) internal {
         if (pendingTxs[_txId].signatures.length == (pendingTxs[_txId].signers.length - 1)) {
             factoryTokenContract.executeCreateMemecoin(_txId);
