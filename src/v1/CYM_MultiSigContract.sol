@@ -178,6 +178,11 @@ contract CYM_MultiSigContract is Ownable {
         }
     }
 
+    /**
+     * @notice Internally attests the signing action on Sign Protocol.
+     * @param _txId Transaction ID.
+     * @param _signer Signer address.
+     */
         function _attestSign(uint256 _txId, address _signer) internal {
         bytes[] memory recipients = new bytes[](1);
         recipients[0] = abi.encode(msg.sender);
