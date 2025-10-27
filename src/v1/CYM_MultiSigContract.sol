@@ -177,4 +177,23 @@ contract CYM_MultiSigContract is Ownable {
             pendingTxs[_txId].signatures.push(msg.sender);
         }
     }
+
+        function _attestSign(uint256 _txId, address _signer) internal {
+        bytes[] memory recipients = new bytes[](1);
+        recipients[0] = abi.encode(msg.sender);
+        Attestation memory a = Attestation({
+            schemaId: signatureSchemaId,
+            linkedAttestationId: 0,
+            attestTimestamp: uint64(block.timestamp),
+            revokeTimestamp: 0,
+            attester: address(this),
+            validUntil: 0,
+            dataLocation: DataLocation.ONCHAIN,
+            revoked: false,
+            recipients: recipients,
+            data: abi.encode(_txId, _signer)
+        });
+        uint64 attestationId = spInstance.attest(a, "", "", "");
+        signerToAttestationId[_signer] = attestationId;
+    }
 }
