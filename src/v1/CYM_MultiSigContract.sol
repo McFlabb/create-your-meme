@@ -213,4 +213,12 @@ contract CYM_MultiSigContract is Ownable {
         //     "Signer unsigned create memecoin."
         // );
     }
+
+        function _handleUnSign(uint256 _txId) internal {
+        for (uint256 i = 0; i < pendingTxs[_txId].signatures.length; i++) {
+            if (pendingTxs[_txId].signatures[i] == msg.sender) {
+                delete pendingTxs[_txId].signatures[i];
+            }
+        }
+    }
 }
