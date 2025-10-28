@@ -202,6 +202,11 @@ contract CYM_MultiSigContract is Ownable {
         signerToAttestationId[_signer] = attestationId;
     }
 
+    /**
+     * @notice Internally handles the revocation of a signature attestation.
+     * @param _txId Transaction ID.
+     * @param _signer Signer address.
+     */
         function _attestRevokeSign(uint256 _txId, address _signer) internal {
         // spInstance.revoke(
         //     signerToAttestationId[_signer],
