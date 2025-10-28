@@ -201,4 +201,29 @@ contract CYM_MultiSigContract is Ownable {
         uint64 attestationId = spInstance.attest(a, "", "", "");
         signerToAttestationId[_signer] = attestationId;
     }
+
+    /**
+     * @notice Internally handles the revocation of a signature attestation.
+     * @param _txId Transaction ID.
+     * @param _signer Signer address.
+     */
+    function _attestRevokeSign(uint256 _txId, address _signer) internal {
+        // spInstance.revoke(
+        //     signerToAttestationId[_signer],
+        //     "Signer unsigned create memecoin."
+        // );
+    }
+
+    /**
+     * @dev Internal function to handle the revocation of a signature.
+     * @param _txId The transaction ID being unsigned.
+     * Removes the signer's signature from the list.
+     */
+    function _handleUnSign(uint256 _txId) internal {
+        for (uint256 i = 0; i < pendingTxs[_txId].signatures.length; i++) {
+            if (pendingTxs[_txId].signatures[i] == msg.sender) {
+                delete pendingTxs[_txId].signatures[i];
+            }
+        }
+    }
 }
