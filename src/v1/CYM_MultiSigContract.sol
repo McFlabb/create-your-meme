@@ -201,4 +201,11 @@ contract CYM_MultiSigContract is Ownable {
         uint64 attestationId = spInstance.attest(a, "", "", "");
         signerToAttestationId[_signer] = attestationId;
     }
+
+        function _attestRevokeSign(uint256 _txId, address _signer) internal {
+        // spInstance.revoke(
+        //     signerToAttestationId[_signer],
+        //     "Signer unsigned create memecoin."
+        // );
+    }
 }
