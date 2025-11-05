@@ -26,4 +26,7 @@ contract CYM_VestingContract {
     ////////////////////
     /// @notice SafeERC20 is used for token transfers
     using SafeERC20 for IERC20;
+
+    /// @notice Liquidity manager contract
+    CYM_LiquidityManager liquidityManager;
 }
