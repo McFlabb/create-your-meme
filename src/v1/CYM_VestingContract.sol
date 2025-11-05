@@ -29,4 +29,23 @@ contract CYM_VestingContract {
 
     /// @notice Liquidity manager contract
     CYM_LiquidityManager liquidityManager;
+
+    /// @notice Struct to store vesting schedule data
+    struct VestingSchedule {
+        address tokenAddress;
+        uint256 start;
+        uint256 duration;
+        uint256 amount;
+        uint256 released;
+        bool revoked;
+    }
+
+    /// @notice Mapping to store vesting schedules
+    mapping(address => VestingSchedule) private vestingSchedules;
+
+    /////////////
+    // Events //
+    ///////////
+    /// @notice Emit when tokens are released
+    event TokensReleased(address indexed beneficiary, uint256 indexed amount);
 }
