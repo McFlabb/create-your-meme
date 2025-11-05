@@ -39,4 +39,7 @@ contract CYM_VestingContract {
         uint256 released;
         bool revoked;
     }
+
+        /// @notice Mapping to store vesting schedules
+    mapping(address => VestingSchedule) private vestingSchedules;
 }
