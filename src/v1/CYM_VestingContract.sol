@@ -42,4 +42,11 @@ contract CYM_VestingContract {
 
         /// @notice Mapping to store vesting schedules
     mapping(address => VestingSchedule) private vestingSchedules;
+
+        /////////////
+    // Events //
+    ///////////
+    /// @notice Emit when tokens are released
+    event TokensReleased(address indexed beneficiary, uint256 indexed amount);
+
 }
