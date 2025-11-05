@@ -11,4 +11,13 @@ import "./CYM_LiquidityManager.sol";
  * @dev Implements a token vesting schedule to release tokens over time to beneficiaries.
  * @notice This contract allows the owner to set vesting schedules and beneficiaries to claim vested tokens over time.
  */
-contract CYM_VestingContract { }
+contract CYM_VestingContract { 
+        ////////////////////
+    // Custom Errors //
+    //////////////////
+    error VestingAlreadySet();
+    error NoVestingSchedule();
+    error VestingIsRevoked();
+    error NoTokensAreDue();
+    error AlreadyRevoked();
+}
