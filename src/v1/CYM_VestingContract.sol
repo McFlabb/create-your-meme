@@ -20,4 +20,10 @@ contract CYM_VestingContract {
     error VestingIsRevoked();
     error NoTokensAreDue();
     error AlreadyRevoked();
+
+        //////////////////////
+    // State variables //
+    ////////////////////
+    /// @notice SafeERC20 is used for token transfers
+    using SafeERC20 for IERC20;
 }
