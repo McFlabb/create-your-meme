@@ -48,4 +48,7 @@ contract CYM_VestingContract {
     ///////////
     /// @notice Emit when tokens are released
     event TokensReleased(address indexed beneficiary, uint256 indexed amount);
+
+    /// @notice Emit when a vesting schedule is revoked
+    event VestingRevoked(address indexed beneficiary);
 }
