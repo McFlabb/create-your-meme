@@ -51,4 +51,12 @@ contract CYM_VestingContract {
 
     /// @notice Emit when a vesting schedule is revoked
     event VestingRevoked(address indexed beneficiary);
+
+        ////////////////
+    // Functions //
+    //////////////
+    /**
+     * @param InitialOwner The initial owner of the contract.
+     */
+    constructor(address InitialOwner) Ownable(InitialOwner) { }
 }
