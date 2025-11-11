@@ -69,7 +69,7 @@ contract CYM_VestingContract {
      * @param amount Total number of tokens to be vested over the duration.
      * @dev Each beneficiary can only have one active vesting schedule; any attempt to set a new one will revert.
      */
-        function setVestingSchedule(
+    function setVestingSchedule(
         address beneficiary,
         address tokenAddress,
         uint256 start,
