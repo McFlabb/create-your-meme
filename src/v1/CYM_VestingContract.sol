@@ -60,6 +60,15 @@ contract CYM_VestingContract {
      */
     constructor(address InitialOwner) Ownable(InitialOwner) { }
 
+    /**
+     * @notice Sets up a vesting schedule for a beneficiary.
+     * @param beneficiary Address of the beneficiary to receive vested tokens.
+     * @param tokenAddress Address of the token to be vested.
+     * @param start UNIX timestamp for when vesting begins.
+     * @param duration Duration of the vesting period in seconds.
+     * @param amount Total number of tokens to be vested over the duration.
+     * @dev Each beneficiary can only have one active vesting schedule; any attempt to set a new one will revert.
+     */
         function setVestingSchedule(
         address beneficiary,
         address tokenAddress,
