@@ -59,4 +59,28 @@ contract CYM_VestingContract {
      * @param InitialOwner The initial owner of the contract.
      */
     constructor(address InitialOwner) Ownable(InitialOwner) { }
+
+        function setVestingSchedule(
+        address beneficiary,
+        address tokenAddress,
+        uint256 start,
+        uint256 duration,
+        uint256 amount
+    )
+        external
+        onlyOwner
+    {
+        if (vestingSchedules[beneficiary].amount != 0) {
+            revert VestingAlreadySet();
+        }
+
+        vestingSchedules[beneficiary] = VestingSchedule({
+            tokenAddress: tokenAddress,
+            start: start,
+            duration: duration,
+            amount: amount,
+            released: 0,
+            revoked: false
+        });
+    }
 }
