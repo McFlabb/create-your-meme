@@ -98,7 +98,7 @@ contract CYM_VestingContract {
      * @param beneficiary The address of the beneficiary receiving the vested tokens.
      * @dev If the vesting schedule is revoked or no tokens are currently due, this function will revert.
      */
-        function release(address beneficiary) public {
+    function release(address beneficiary) public {
         VestingSchedule storage schedule = vestingSchedules[beneficiary];
         if (schedule.amount == 0) {
             revert NoVestingSchedule();
