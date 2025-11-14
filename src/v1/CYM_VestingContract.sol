@@ -92,4 +92,29 @@ contract CYM_VestingContract {
             revoked: false
         });
     }
+
+    /**
+     * @notice Releases the vested tokens for a beneficiary based on the elapsed vesting period.
+     * @param beneficiary The address of the beneficiary receiving the vested tokens.
+     * @dev If the vesting schedule is revoked or no tokens are currently due, this function will revert.
+     */
+    function release(address beneficiary) public {
+        VestingSchedule storage schedule = vestingSchedules[beneficiary];
+        if (schedule.amount == 0) {
+            revert NoVestingSchedule();
+        }
+        if (schedule.revoked) {
+            revert VestingIsRevoked();
+        }
+
+        uint256 unreleased = vestedAmount(beneficiary) - schedule.released;
+        if (unreleased == 0) {
+            revert NoTokensAreDue();
+        }
+
+        schedule.released += unreleased;
+        IERC20(schedule.tokenAddress).safeTransfer(beneficiary, unreleased);
+
+        emit TokensReleased(beneficiary, unreleased);
+    }
 }
