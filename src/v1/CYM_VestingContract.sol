@@ -92,4 +92,24 @@ contract CYM_VestingContract {
             revoked: false
         });
     }
+
+        function release(address beneficiary) public {
+        VestingSchedule storage schedule = vestingSchedules[beneficiary];
+        if (schedule.amount == 0) {
+            revert NoVestingSchedule();
+        }
+        if (schedule.revoked) {
+            revert VestingIsRevoked();
+        }
+
+        uint256 unreleased = vestedAmount(beneficiary) - schedule.released;
+        if (unreleased == 0) {
+            revert NoTokensAreDue();
+        }
+
+        schedule.released += unreleased;
+        IERC20(schedule.tokenAddress).safeTransfer(beneficiary, unreleased);
+
+        emit TokensReleased(beneficiary, unreleased);
+    }
 }
